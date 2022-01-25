@@ -30,3 +30,10 @@ first(df,5)
 using Lathe.preprocess: TrainTestSplit
 train, test = TrainTestSplit(df,.75);
 println(train)
+# Train logistic regression model
+fm = @formula(Exited ~ CreditScore + Age + Tenure + 
+              Balance + NumOfProducts + HasCrCard + 
+              IsActiveMember + EstimatedSalary)
+logit = glm(fm, train, Binomial(), ProbitLink())
+
+prediction = predict(logit, test)
